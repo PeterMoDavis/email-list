@@ -1,24 +1,27 @@
+// server.js
 const express = require('express');
 const mongoose = require('mongoose');
+const cors = require('cors'); // Import the cors middleware
+
 const app = express();
+const port = 8000;
+
+app.use(express.json());
+app.use(cors()); // Enable CORS for all routes
 
 const uri =
-  'mongodb+srv://pmodavis:BrianRapshby@emaillist.5qvwujl.mongodb.net/?retryWrites=true&w=majority';
+  'mongodb+srv://pmodavis:BrianRapshby@emaillist.5qvwujl.mongodb.net/users?retryWrites=true&w=majority';
 
 async function connect() {
   try {
     await mongoose.connect(uri);
-    console.log('Connected to MongoDB');
+    console.log('Hello Peter, You are now connected to to MongoDB 🚂');
   } catch (error) {
     console.error(error);
   }
 }
 
 connect();
-
-app.listen(8000, () => {
-  console.log('Server started on port 8000 hello everyone!');
-});
 
 const userSchema = new mongoose.Schema({
   firstName: String,
@@ -28,17 +31,18 @@ const userSchema = new mongoose.Schema({
 
 const User = mongoose.model('User', userSchema);
 
-const newUser = new User({
-  firstName: 'Peter',
-  lastName: 'MoDavis',
-  email: 'pmodavis@gmail.com',
+app.post('/saveUser', async (req, res) => {
+  const { firstName, lastName, email } = req.body;
+  const newUser = new User({ firstName, lastName, email });
+
+  try {
+    const savedUser = await newUser.save();
+    res.json(savedUser);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 });
 
-newUser
-  .save()
-  .then((user) => {
-    console.log(`User saved: ${user}`);
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+app.listen(port, () => {
+  console.log(`Server started on port ${port}`);
+});

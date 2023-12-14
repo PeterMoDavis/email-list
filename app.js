@@ -1,18 +1,22 @@
-const firstName = document.querySelector('#first-name');
-const lastName = document.querySelector('#last-name');
-const email = document.querySelector('#email');
-const submitButton = document.querySelector('#submit-button');
-const inputInformation = {};
+document
+  .getElementById('userForm')
+  .addEventListener('submit', async function (event) {
+    event.preventDefault();
 
-function retrieveInput() {
-  submitButton.addEventListener('click', (e) => {
-    e.preventDefault();
-    inputInformation.firstName = firstName.value;
-    inputInformation.lastName = lastName.value;
-    inputInformation.email = email.value;
+    const firstName = document.getElementById('first-name').value;
+    const lastName = document.getElementById('last-name').value;
+    const email = document.getElementById('email').value;
 
-    console.log(inputInformation);
+    const response = await fetch('http://localhost:8000/saveUser', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ firstName, lastName, email }),
+    });
+
+    const data = await response.json();
+    console.log(data);
+
+    document.querySelector('#userForm').reset();
   });
-}
-
-retrieveInput();
