@@ -8,3 +8,41 @@ img {
   width: 300px;
   border-radius: 10px;
 }
+
+.dimmed-overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.85);
+  opacity: 0; /* Initially hide the overlay */
+  visibility: hidden;
+  transition: opacity 1s ease, visibility 5s ease;
+}
+
+.dimmed-overlay.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.congratulations {
+  border: solid black;
+  display: inline;
+  padding: 10px 20px;
+  border-radius: 6px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  opacity: 0; /* Initially hide the congratulations element */
+  visibility: hidden;
+  transition: opacity 1s ease, visibility 5s ease;
+  border-color: white;
+  background-color: gold;
+}
+
+.congratulations.show {
+  opacity: 1;
+  visibility: visible;
+}
