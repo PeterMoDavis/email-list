@@ -3,7 +3,7 @@ h1 {
   text-align: center;
   font-size: 50px;
   background-color: #41463d;
-  color: rgb(249, 247, 239);
+  color: #eeebe3;
 }
 
 img {
@@ -12,7 +12,7 @@ img {
 }
 
 input {
-  background-color: #95f2d9 !important;
+  background-color: #eeebe3 !important;
   border: none !important;
 }
 
@@ -50,7 +50,7 @@ input {
 }
 
 body {
-  background-color: #b8cdf8;
+  background-color: #665146;
 }
 
 .congratulations.show {
@@ -59,6 +59,6 @@ body {
 }
 
 button {
-  background-color: #41463d !important;
+  background-color: #819a95 !important;
   border: none !important;
 }
