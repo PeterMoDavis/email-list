@@ -1,5 +1,5 @@
 document
-  .getElementById('userForm')
+  .getElementById('user-form')
   .addEventListener('submit', async function (event) {
     event.preventDefault();
 
@@ -33,15 +33,14 @@ document
       congratulations.innerText = `Congratulations ${firstName}, you've entered your email!!!`;
       congratulations.classList.add('show');
       overlay.classList.add('show');
+      document.querySelector('#user-form').reset();
     } else {
       congratulations.innerText = 'You have not filled out all the inputs';
       congratulations.classList.add('show');
       overlay.classList.add('show');
     }
-
     setTimeout(() => {
       congratulations.classList.remove('show');
       overlay.classList.remove('show');
-      document.querySelector('#userForm').reset();
     }, 3000);
   });

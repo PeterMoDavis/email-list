@@ -2,11 +2,18 @@ h1 {
   font-family: Agbalumo;
   text-align: center;
   font-size: 50px;
+  background-color: #41463d;
+  color: rgb(249, 247, 239);
 }
 
 img {
   width: 300px;
   border-radius: 10px;
+}
+
+input {
+  background-color: #95f2d9 !important;
+  border: none !important;
 }
 
 .dimmed-overlay {
@@ -42,7 +49,16 @@ img {
   background-color: gold;
 }
 
+body {
+  background-color: #b8cdf8;
+}
+
 .congratulations.show {
   opacity: 1;
   visibility: visible;
+}
+
+button {
+  background-color: #41463d !important;
+  border: none !important;
 }
