@@ -12,15 +12,52 @@ document
 
     let allInputsFilled = true;
 
-    for (const input of inputs) {
-      console.log(input.value);
-      if (input.value === '') {
-        allInputsFilled = false;
-        break; // Break the loop if any input is empty
+    areAllInputsFilled();
+
+    if (allInputsFilled) {
+      //send data to mongdb
+      sendDataToMongo();
+
+      congratulations.innerText = `Congratulations ${firstName}, you've entered your email!!!`;
+
+      //show overlay 'should change name'
+      showCongratulations();
+
+      //reset form
+      document.querySelector('#user-form').reset();
+    } else {
+      congratulations.innerText = 'You have not filled out all the inputs';
+
+      //show overlay
+      showCongratulations();
+    }
+
+    //set timeout to remove overlay after 3 seconds
+    setTimeout(() => {
+      hideCongratulations();
+    }, 3000);
+
+    function showCongratulations() {
+      congratulations.classList.add('show');
+      overlay.classList.add('show');
+    }
+
+    function hideCongratulations() {
+      congratulations.classList.remove('show');
+      overlay.classList.remove('show');
+    }
+
+    function areAllInputsFilled() {
+      for (const input of inputs) {
+        console.log(input.value);
+        if (input.value === '') {
+          allInputsFilled = false;
+          break; // Break the loop if any input is empty
+        }
       }
     }
 
-    if (allInputsFilled) {
+    async function sendDataToMongo() {
       const response = await fetch('http://localhost:8000/saveUser', {
         method: 'POST',
         headers: {
@@ -29,18 +66,6 @@ document
         body: JSON.stringify({ firstName, lastName, email }),
       });
       const data = await response.json();
-
-      congratulations.innerText = `Congratulations ${firstName}, you've entered your email!!!`;
-      congratulations.classList.add('show');
-      overlay.classList.add('show');
-      document.querySelector('#user-form').reset();
-    } else {
-      congratulations.innerText = 'You have not filled out all the inputs';
-      congratulations.classList.add('show');
-      overlay.classList.add('show');
+      console.log(data);
     }
-    setTimeout(() => {
-      congratulations.classList.remove('show');
-      overlay.classList.remove('show');
-    }, 3000);
   });
